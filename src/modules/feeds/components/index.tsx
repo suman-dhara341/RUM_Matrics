@@ -14,6 +14,7 @@ import "../css/feed.css";
 import { setActiveTab } from "../../profile/slice/tabSlice";
 import { IndexPageShimmer } from "./shimmer/IndexPageShimmer";
 import IndexShimmer from "./shimmer/IndexShimmer";
+import awsRum from "../../../aws/rumClient";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -129,6 +130,16 @@ const Feed = () => {
   const handleMenuClick = (menuName: string) => {
     dispatch(setActiveTab(menuName));
     navigate("/profile?tab=activity");
+    
+    if (awsRum) {
+      awsRum.recordEvent("cta_click", {
+        buttonId: "signup",
+        location: window.location.pathname,
+        timestamp: Date.now(),
+      });
+    } else {
+      console.warn("awsRum not initialized");
+    }
   };
 
   if (profileError) {
@@ -253,8 +264,11 @@ const Feed = () => {
               {upcomingGoals.length === 0 ? (
                 <div className="flex justify-center items-center min-h-[15vh]">
                   <p className="text-center text-[#73737D]">
-                    No upcoming goals.{" "}<br/>
-                    <span className="text-blue-600 underline cursor-pointer" onClick={haldelRedirectGoals}>
+                    No upcoming goals. <br />
+                    <span
+                      className="text-blue-600 underline cursor-pointer"
+                      onClick={haldelRedirectGoals}
+                    >
                       Create a new goal
                     </span>
                   </p>
