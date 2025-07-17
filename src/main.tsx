@@ -5,7 +5,7 @@ import store from "./store/Store.ts";
 import App from "./App.tsx";
 import { AwsRum } from "aws-rum-web";
 
-const config: AwsRumConfig = {
+const config = {
   sessionSampleRate: 1,
   identityPoolId: "us-east-1:fa34c40d-fe0a-40dc-bfc8-e041cfce03a8",
   endpoint: "https://dataplane.rum.us-east-1.amazonaws.com",
