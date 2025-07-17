@@ -14,22 +14,23 @@ try {
     telemetries: ["performance", "errors", "http"],
     allowCookies: true,
     enableXRay: false,
-    signing: false, // ✅ Unsigned request
+    signing: false,
   };
 
-  const APPLICATION_ID = "59b807bf-2365-42ee-9205-22339f86211e";
-  const APPLICATION_VERSION = "1.0.0";
-  const APPLICATION_REGION = "us-east-1";
+  const APPLICATION_ID: string = "59b807bf-2365-42ee-9205-22339f86211e";
+  const APPLICATION_VERSION: string = "1.0.0";
+  const APPLICATION_REGION: string = "us-east-1";
 
-  const awsRum = new AwsRum(
+  const awsRum: AwsRum = new AwsRum(
     APPLICATION_ID,
     APPLICATION_VERSION,
     APPLICATION_REGION,
     config
   );
-  console.log("AWS RUM initialized:", awsRum);
+  (window as any).AwsRum = awsRum;
+  console.log("RUM initialized:", awsRum);
 } catch (error) {
-  console.error("AWS RUM initialization failed:", error);
+  console.error("Error initializing AWS RUM:", error);
 }
 
 // ✅ Then continue rendering your app

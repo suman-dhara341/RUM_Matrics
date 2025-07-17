@@ -14,7 +14,7 @@ import "../css/feed.css";
 import { setActiveTab } from "../../profile/slice/tabSlice";
 import { IndexPageShimmer } from "./shimmer/IndexPageShimmer";
 import IndexShimmer from "./shimmer/IndexShimmer";
-import awsRum from "../../../aws/rumClient";
+import { log } from "util";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -130,15 +130,21 @@ const Feed = () => {
   const handleMenuClick = (menuName: string) => {
     dispatch(setActiveTab(menuName));
     navigate("/profile?tab=activity");
-    
-    if (awsRum) {
-      awsRum.recordEvent("cta_click", {
+    console.log(
+      window.AwsRum?.eventCache.recordEvent("cta_clicked", {
+        button: "signup_button",
+        page: window.location.pathname,
+      })
+    );
+
+    if (window.AwsRum?.eventCache?.recordEvent) {
+      window.AwsRum.eventCache.recordEvent("cta_click", {
         buttonId: "signup",
         location: window.location.pathname,
         timestamp: Date.now(),
       });
     } else {
-      console.warn("awsRum not initialized");
+      console.warn("AWS RUM recordEvent not available");
     }
   };
 
