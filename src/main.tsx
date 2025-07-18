@@ -27,7 +27,6 @@ try {
     APPLICATION_REGION,
     config
   );
-  (window as any).AwsRum = awsRum;
   console.log("RUM initialized:", awsRum);
 } catch (error) {
   console.error("Error initializing AWS RUM:", error);
