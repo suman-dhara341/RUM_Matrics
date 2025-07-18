@@ -2,11 +2,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import { AwsRum, AwsRumConfig } from "aws-rum-web"; // ✅ Add here
+import { AwsRum, AwsRumConfig } from "aws-rum-web";
 import { Provider } from "react-redux";
 import store from "./store/Store.ts";
 
-// ✅ Paste this before ReactDOM.createRoot()
+// ✅ Export awsRum instance to use in other files
+export let awsRum: AwsRum;
+
 try {
   const config: AwsRumConfig = {
     sessionSampleRate: 1,
@@ -22,18 +24,17 @@ try {
   const APPLICATION_VERSION: string = "1.0.0";
   const APPLICATION_REGION: string = "us-east-1";
 
-  const awsRum: AwsRum = new AwsRum(
+  awsRum = new AwsRum(
     APPLICATION_ID,
     APPLICATION_VERSION,
     APPLICATION_REGION,
     config
   );
-  console.log("RUM initialized:", awsRum);
+  console.log("✅ AWS RUM initialized");
 } catch (error) {
-  console.error("Error initializing AWS RUM:", error);
+  console.error("❌ Failed to initialize AWS RUM:", error);
 }
 
-// ✅ Then continue rendering your app
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
