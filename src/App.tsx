@@ -8,7 +8,6 @@ import {
   listenForMessages,
   requestPermission,
 } from "./firebase/NotificationService.ts";
-import RouteTracker from "./PageViewTracker.tsx";
 
 const App = () => {
   useEffect(() => {
@@ -20,7 +19,6 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {/* <NotificationListener /> */}
-      <RouteTracker />
       <RouteHolder />
     </ThemeProvider>
   );
