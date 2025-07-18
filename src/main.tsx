@@ -15,6 +15,7 @@ try {
     allowCookies: true,
     enableXRay: false,
     signing: false,
+    sessionEventLimit: 1000,
   };
 
   const APPLICATION_ID: string = "59b807bf-2365-42ee-9205-22339f86211e";
